@@ -4,6 +4,5 @@
 ## Author: Mayen
 
 LibStub-1.0\LibStub-1.0.xml
-CallbackHandler-1.0\CallbackHandler-1.0.xml
 
 DRData-1.0.xml

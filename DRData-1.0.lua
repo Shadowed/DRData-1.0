@@ -1,5 +1,5 @@
 local major = "DRData-1.0"
-local minor = tonumber(string.match("$Revision: 703$", "(%d+)") or 1)
+local minor = tonumber(string.match("$Revision: 793$", "(%d+)") or 1)
 
 assert(LibStub, string.format("%s requires LibStub.", major))
 
@@ -10,7 +10,7 @@ if( not Data ) then return end
 Data.RESET_TIME = 18
 
 -- List of spellID -> DR category
-Data.Spells = {
+Data.spells = {
 	--[[ DISORIENTS ]]--
 	-- Maim
 	[22570] = "disorient",
@@ -151,6 +151,18 @@ Data.Spells = {
 	[9853] = "root",
 	[26989] = "root",
 
+	--[[ SLEEPS ]]--
+	-- Hibernate
+	[2637] = "sleep",
+	[18657] = "sleep",
+	[18658] = "sleep",
+	
+	-- Wyvern Sting
+	[19386] = "sleep",
+	[24132] = "sleep",
+	[24133] = "sleep",
+	[27068] = "sleep",
+
 	--[[ MISC ]]--
 	-- Chastise (Maybe this shares DR with Imp HS?)
 	[44041] = "chastise",
@@ -185,15 +197,10 @@ Data.Spells = {
 
 	-- Improved Hamstring
 	[23694] = "imphs",
-		
-	-- Hibernate
-	[2637] = "hibernate",
-	[18657] = "hibernate",
-	[18658] = "hibernate",
 }
 
 -- DR Category names
-Data.TypeNames = {
+Data.typeNames = {
 	["disorient"] = "Disorients",
 	["fear"] = "Fears",
 	["ctrlstun"] = "Control Stuns",
@@ -205,7 +212,141 @@ Data.TypeNames = {
 	["scatters"] = "Scatter Shot",
 	["freezetrap"] = "Freeze Trap",
 	["dc"] = "Death Coil",
-	["hibernate"] = "Hibernate",
+	["sleep"] = "Sleep",
 	["root"] = "Roots",
 	["impconc"] = "Imp Concussive Shot",
 }
+
+-- Categories that have DR in PvE as well as PvP
+Data.pveDRs = {
+	["ks"] = true,
+	["ctrlstun"] = true,
+	["rndstun"] = true,
+	["cyclone"] = true,
+}
+
+-- List of DRs
+Data.categories = {}
+for _, cat in pairs(Data.spells) do
+	Data.categories[cat] = true
+end
+
+-- Public APIs
+-- Category name in something usable
+function Data:GetCategoryName(cat)
+	return cat and Data.typeNames[cat] or nil
+end
+
+-- Spell list
+function Data:GetSpells()
+	return Data.spells
+end
+
+-- Seconds before DR resets
+function Data:GetResetTime()
+	return Data.RESET_TIME
+end
+
+-- Get the category of the spellID
+function Data:GetSpellCategory(spellID)
+	return spellID and Data.spells[spellID] or nil
+end
+
+-- Does this category DR in PvE?
+function Data:IsPVE(cat)
+	return cat and Data.pveDRs[cat] or nil
+end
+
+-- List of categories
+function Data:GetCategories()
+	return Data.categories
+end
+
+-- Next DR, if it's 1.0, next is 0.50, if it's 0.50 next is 0.25 and such
+function Data:NextDR(diminished)
+	if( diminished == 1.0 ) then
+		return 0.50
+	elseif( diminished == 0.50 ) then
+		return 0.25
+	end
+	
+	return 0
+end
+
+--[[ EXAMPLES ]]--
+--[[
+	This is how you would track DR easily, you're welcome to do whatever you want with the below 4 functions.
+
+	Does not include tracking for PvE, you'd need to hack that in yourself but it's not (too) hard.
+]]
+
+--[[
+local trackedPlayers = {}
+local function debuffGained(spellID, destName, destGUID, isEnemy)
+	if( not trackedPlayers[destGUID] ) then
+		trackedPlayers[destGUID] = {}
+	end
+
+	-- See if we should reset it back to undiminished
+	local drCat = DRData:GetSpellCae
+	local tracked = trackedPlayers[destGUID][drCat]
+	if( tracked and tracked.reset <= GetTime() ) then
+		tracked.diminished = 1.0
+	end	
+end
+
+local function debuffFaded(spellID, destName, destGUID, isEnemy)
+	local drCat = DRData:GetSpellCategory(spellID)
+	if( not trackedPlayers[destGUID] ) then
+		trackedPlayers[destGUID] = {}
+	end
+
+	if( not trackedPlayers[destGUID][drCat] ) then
+		trackedPlayers[destGUID][drCat] = { reset = 0, diminished = 1.0 }
+	end
+	
+	local time = GetTime()
+	local tracked = trackedPlayers[destGUID][drCat]
+	
+	tracked.reset = time + DRData:GetResetTime()
+	tracked.diminished = nextDR(tracked.diminished)
+end
+
+local function resetDR(destGUID)
+	-- Reset the tracked DRs for this person
+	if( trackedPlayers[destGUID] ) then
+		for cat in pairs(trackedPlayers[destGUID]) do
+			trackedPlayers[destGUID][cat].reset = 0
+			trackedPlayers[destGUID][cat].diminished = 1.0
+		end
+	end
+end
+
+local COMBATLOG_OBJECT_TYPE_PLAYER = COMBATLOG_OBJECT_TYPE_PLAYER
+local COMBATLOG_OBJECT_REACTION_HOSTILE = COMBATLOG_OBJECT_REACTION_HOSTILE
+local COMBATLOG_OBJECT_CONTROL_PLAYER = COMBATLOG_OBJECT_CONTROL_PLAYER
+
+local eventRegistered = {["SPELL_AURA_APPLIED"] = true, ["SPELL_AURA_REMOVED"] = true, ["PARTY_KILL"] = true, ["UNIT_DIED"] = true}
+local function COMBAT_LOG_EVENT_UNFILTERED(self, event, timestamp, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellID, spellName, spellSchool, auraType)
+	if( not eventRegistered[eventType] or ( bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= COMBATLOG_OBJECT_TYPE_PLAYER and bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) ~= COMBATLOG_OBJECT_CONTROL_PLAYER ) ) then
+		return
+	end
+	
+	-- Enemy gained a debuff
+	if( eventType == "SPELL_AURA_APPLIED" ) then
+		if( auraType == "DEBUFF" and Data.Spells[spellID] ) then
+			debuffGained(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE))
+		end
+	
+	-- Buff or debuff faded from an enemy
+	elseif( eventType == "SPELL_AURA_REMOVED" ) then
+		if( auraType == "DEBUFF" and Data.Spells[spellID] ) then
+			debuffFaded(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE))
+		end
+		
+	-- Don't use UNIT_DIED inside arenas due to accuracy issues, outside of arenas we don't care too much
+	elseif( ( eventType == "UNIT_DIED" and select(2, IsInInstance()) ~= "arena" ) or eventType == "PARTY_KILL" ) then
+		resetDR(destGUID)
+	end
+end
+]]
