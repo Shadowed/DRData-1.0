@@ -108,6 +108,9 @@ Data.spells = {
 	[30413] = "ctrlstun",
 	[30414] = "ctrlstun",
 	
+	-- Impact
+	[12355] = "ctrlstun",
+
 	--[[ RANDOM STUNS ]]--
 	-- Stoneclaw Stun
 	[39796] = "rndstun",
@@ -126,9 +129,6 @@ Data.spells = {
 	
 	-- Blackout
 	[15269] = "rndstun",
-	
-	-- Impact
-	[12355] = "rndstun",
 	
 	-- Revenge Stun
 	[12798] = "rndstun",
@@ -210,6 +210,11 @@ Data.spells = {
 	-- Kidney Shot
 	[408] = "ks",
 	[8643] = "ks",
+	
+	-- Mind Control
+	[605] = "charm",
+	[10911] = "charm",
+	[10912] = "charm",
 }
 
 -- DR Category names
@@ -229,6 +234,7 @@ Data.typeNames = {
 	["sleep"] = "Sleep",
 	["root"] = "Controlled Roots",
 	["impconc"] = "Imp Concussive Shot",
+	["charm"] = "Charms",
 }
 
 -- Categories that have DR in PvE as well as PvP
