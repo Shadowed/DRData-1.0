@@ -6,6 +6,8 @@ assert(LibStub, string.format("%s requires LibStub.", major))
 local Data = LibStub:NewLibrary(major, minor)
 if( not Data ) then return end
 
+if( IS_WRATH_BUILD == nil ) then IS_WRATH_BUILD = (select(4, GetBuildInfo()) >= 30000) end
+
 -- How long before DR resets
 Data.RESET_TIME = 18
 
@@ -20,7 +22,7 @@ Data.spells = {
 	[2070] = "disorient",
 	[11297] = "disorient",
 	
-	-- Gouge
+	-- Gouge (Remove all except 1776 come WoTLK)
 	[1776] = "disorient",
 	[1777] = "disorient",
 	[8629] = "disorient",
@@ -217,6 +219,42 @@ Data.spells = {
 	[10912] = "charm",
 }
 
+-- Add WoTLK spells
+if( IS_WRATH_BUILD ) then
+	-- Death Coil
+	Data.spells[47859] = "dc"
+	Data.spells[47860] = "dc"
+	
+	-- Wyvern Sting
+	Data.spells[49011] = "sleep"
+	Data.spells[49012] = "sleep"
+	
+	-- Entangling Roots
+	Data.spells[53308] = "root"
+	
+	-- Frost Nova
+	Data.spells[42917] = "root"
+	
+	-- Intercept (Remove all except this one come WoTLK)
+	Data.spells[20252] = "ctrlstun"
+	
+	-- Pounce
+	Data.spells[49803] = "ctrlstun"
+	
+	-- Polymorph
+	Data.spells[61305] = "disorient"
+	Data.spells[61025] = "disorient"
+	
+	-- Sap
+	Data.spells[51724] = "disorient"
+	
+	-- Maim
+	Data.spells[49802] = "disorient"
+	
+	-- Hex (Guessing)
+	Data.spells[51514] = "disorient"
+end
+
 -- DR Category names
 Data.typeNames = {
 	["disorient"] = "Disorients",
@@ -225,7 +263,6 @@ Data.typeNames = {
 	["rndstun"] = "Random Stuns",
 	["cyclone"] = "Cyclone/Blind",
 	["ks"] = "Kidney Shot",
-	["imphs"] = "Imp Hamstring",
 	["chastise"] = "Chastise",
 	["scatters"] = "Scatter Shot",
 	["freezetrap"] = "Freeze Trap",
