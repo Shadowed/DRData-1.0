@@ -6,8 +6,6 @@ assert(LibStub, string.format("%s requires LibStub.", major))
 local Data = LibStub:NewLibrary(major, minor)
 if( not Data ) then return end
 
-if( IS_WRATH_BUILD == nil ) then IS_WRATH_BUILD = (select(4, GetBuildInfo()) >= 30000) end
-
 -- How long before DR resets
 Data.RESET_TIME = 18
 
@@ -114,6 +112,9 @@ Data.spells = {
 	
 	-- Impact
 	[12355] = "ctrlstun",
+	
+	-- Gnaw (Ghoul)
+	[47481] = "ctrlstun",
 
 	--[[ RANDOM STUNS ]]--
 	-- Stoneclaw Stun
