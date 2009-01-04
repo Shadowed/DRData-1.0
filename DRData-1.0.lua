@@ -40,6 +40,17 @@ Data.spells = {
 	
 	-- Repentance
 	[20066] = "disorient",
+	
+	--[[ DISARMS ]]--
+	-- Dismantle
+	[51722] = "disarm",
+	
+	-- Disarm
+	[676] = "disarm",
+	
+	-- Chimera Shot - Scorpid
+	[53359] = "disarm",
+	
 
 	--[[ FEARS ]]--
 	-- Fear (Warlock)
@@ -110,7 +121,10 @@ Data.spells = {
 
 	-- Intercept
 	[20252] = "ctrlstun",
-		
+	
+	-- Deep Freeze
+	[44572] = "ctrlstun",
+			
 	-- Shadowfury
 	[30283] = "ctrlstun", 
 	[30413] = "ctrlstun",
@@ -236,6 +250,7 @@ Data.spells = {
 
 -- DR Category names
 Data.typeNames = {
+	["disarm"] = "Disarm",
 	["disorient"] = "Disorients",
 	["fear"] = "Fears",
 	["ctrlstun"] = "Controlled Stuns",
