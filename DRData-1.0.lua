@@ -27,7 +27,12 @@ Data.spells = {
 		
 	-- Hex (Guessing)
 	[51514] = "disorient",
-
+	
+	-- Shackle
+	[9484] = "disorient",
+	[9485] = "disorient",
+	[10955] = "disorient",
+	
 	-- Polymorph
 	[118] = "disorient",
 	[12824] = "disorient",
