@@ -46,6 +46,44 @@ Data.spells = {
 	-- Repentance
 	[20066] = "disorient",
 	
+	-- Divine Hymn (Maybe this isn't shared?)
+	[47953] = "disorient",
+	
+	--[[ SILENCES ]]--
+	-- Garrote
+	[1330] = "silence",
+	
+	-- Arcane Torrent (Energy version)
+	[25046] = "silence",
+	
+	-- Arcane Torrent (Mana version)
+	[28730] = "silence",
+	
+	-- Arcane Torrent (Runic power version)
+	[50613] = "silence",
+	
+	-- Silence
+	[15487] = "silence",
+
+	-- Silencing Shot
+	[34490] = "silence",
+
+	-- Improved Kick
+	[18425] = "silence",
+
+	-- Improved Counterspell
+	[18469] = "silence",
+	
+	-- Strangulate
+	[47476] = "silence",
+	[49913] = "silence",
+	[49914] = "silence",
+	[49915] = "silence",
+	[49916] = "silence",
+	
+	-- Gag Order (talent)
+	[18498] = "silence",
+	
 	--[[ DISARMS ]]--
 	-- Dismantle
 	[51722] = "disarm",
@@ -56,7 +94,6 @@ Data.spells = {
 	-- Chimera Shot - Scorpid
 	[53359] = "disarm",
 	
-
 	--[[ FEARS ]]--
 	-- Fear (Warlock)
 	[5782] = "fear",
@@ -140,7 +177,10 @@ Data.spells = {
 	
 	-- Gnaw (Ghoul)
 	[47481] = "ctrlstun",
-
+	
+	-- Glyph of Death Grip
+	[58628] = "ctrlstun",
+	
 	--[[ RANDOM STUNS ]]--
 	-- Stoneclaw Stun
 	[39796] = "rndstun",
@@ -214,14 +254,6 @@ Data.spells = {
 	[49012] = "sleep",
 	
 	--[[ MISC ]]--
-	-- Chastise (Maybe this shares DR with Imp HS?)
-	[44041] = "chastise",
-	[44043] = "chastise",
-	[44044] = "chastise",
-	[44045] = "chastise",
-	[44046] = "chastise",
-	[44047] = "chastise",
-
 	-- Scatter Shot
 	[19503] = "scatters",
 	
@@ -271,6 +303,7 @@ Data.typeNames = {
 	["root"] = "Controlled Roots",
 	["impconc"] = "Imp Concussive Shot",
 	["charm"] = "Charms",
+	["silence"] = "Silences",
 }
 
 -- Categories that have DR in PvE as well as PvP
