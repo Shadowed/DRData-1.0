@@ -155,8 +155,9 @@ Data.spells = {
 	-- Charge
 	[7922] = "ctrlstun",
 
-	-- Cheap Shot
-	[1833] = "ctrlstun",
+	-- Kidney Shot
+	[408] = "ctrlstun",
+	[8643] = "ctrlstun",
 
 	-- War Stomp
 	[20549] = "ctrlstun",
@@ -274,15 +275,14 @@ Data.spells = {
 	[27223] = "dc",
 	[47859] = "dc",
 	[47860] = "dc",
-
-	-- Kidney Shot
-	[408] = "ks",
-	[8643] = "ks",
 	
 	-- Mind Control
 	[605] = "charm",
 	[10911] = "charm",
 	[10912] = "charm",
+
+	-- Cheap Shot
+	[1833] = "cheapshot",
 }
 
 -- DR Category names
@@ -293,7 +293,7 @@ Data.typeNames = {
 	["ctrlstun"] = "Controlled Stuns",
 	["rndstun"] = "Random Stuns",
 	["cyclone"] = "Cyclone/Blind",
-	["ks"] = "Kidney Shot",
+	["cheapshot"] = "Cheap Shot",
 	["chastise"] = "Chastise",
 	["scatters"] = "Scatter Shot",
 	["freezetrap"] = "Freeze Trap",
