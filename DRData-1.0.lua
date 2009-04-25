@@ -12,10 +12,17 @@ Data.RESET_TIME = 18
 -- List of spellID -> DR category
 Data.spells = {
 	--[[ DISORIENTS ]]--
-	-- Maim
-	[22570] = "disorient",
-	[49802] = "disorient",
-
+	-- Dragon's Breath
+	[31661] = "disorient",
+	[33041] = "disorient",
+	[33042] = "disorient",
+	[33043] = "disorient",
+	[42949] = "disorient",
+	[42950] = "disorient",
+	
+	-- Hungering Cold
+	[49203] = "disorient",
+	
 	-- Sap
 	[6770] = "disorient",
 	[2070] = "disorient",
@@ -45,10 +52,7 @@ Data.spells = {
 	
 	-- Repentance
 	[20066] = "disorient",
-	
-	-- Divine Hymn (Maybe this isn't shared?)
-	[47953] = "disorient",
-	
+		
 	--[[ SILENCES ]]--
 	-- Garrote
 	[1330] = "silence",
@@ -93,6 +97,9 @@ Data.spells = {
 	
 	-- Chimera Shot - Scorpid
 	[53359] = "disarm",
+	
+	-- Psychic Horror (Disarm effect)
+	[64058] = "disarm",
 	
 	--[[ FEARS ]]--
 	-- Fear (Warlock)
@@ -142,18 +149,15 @@ Data.spells = {
 	[6798] = "ctrlstun",
 	[8983] = "ctrlstun",
 	
-	-- Pounce
-	[9005] = "ctrlstun",
-	[9823] = "ctrlstun",
-	[9827] = "ctrlstun",
-	[27006] = "ctrlstun",
-	[49803] = "ctrlstun",
-	
 	-- Intimidation
 	[19577] = "ctrlstun",
 
 	-- Charge
 	[7922] = "ctrlstun",
+
+	-- Maim
+	[22570] = "ctrlstun",
+	[49802] = "ctrlstun",
 
 	-- Kidney Shot
 	[408] = "ctrlstun",
@@ -173,6 +177,15 @@ Data.spells = {
 	[30413] = "ctrlstun",
 	[30414] = "ctrlstun",
 	
+	-- Holy Wrath
+	[2812] = "ctrlstun",
+	
+	-- Inferno Effect
+	[22703] = "ctrlstun",
+	
+	-- Demon Charge
+	[60995] = "ctrlstun",
+	
 	-- Impact
 	[12355] = "ctrlstun",
 	
@@ -183,23 +196,21 @@ Data.spells = {
 	[58628] = "ctrlstun",
 	
 	--[[ RANDOM STUNS ]]--
+	-- Improved Fire Nova Totem
+	[64538] = "rndstun",
+	[51880] = "rndstun",
+	
 	-- Stoneclaw Stun
 	[39796] = "rndstun",
 	
 	-- Starfire Stun
 	[16922] = "rndstun",
 	
-	-- Mace Stun
-	[5530] = "rndstun",
-	
 	-- Stormherald/Deep Thunder
 	[34510] = "rndstun",
 	
 	-- Seal of Justice
 	[20170] = "rndstun",
-	
-	-- Blackout
-	[15269] = "rndstun",
 	
 	-- Revenge Stun
 	[12798] = "rndstun",
@@ -279,6 +290,9 @@ Data.spells = {
 	[47859] = "dc",
 	[47860] = "dc",
 	
+	-- Psychic Horror
+	[64044] = "dc",
+	
 	-- Mind Control
 	[605] = "charm",
 	[10911] = "charm",
@@ -286,6 +300,13 @@ Data.spells = {
 
 	-- Cheap Shot
 	[1833] = "cheapshot",
+
+	-- Pounce
+	[9005] = "cheapshot",
+	[9823] = "cheapshot",
+	[9827] = "cheapshot",
+	[27006] = "cheapshot",
+	[49803] = "cheapshot",
 }
 
 -- DR Category names
@@ -311,7 +332,6 @@ Data.typeNames = {
 
 -- Categories that have DR in PvE as well as PvP
 Data.pveDRs = {
-	["ks"] = true,
 	["ctrlstun"] = true,
 	["rndstun"] = true,
 	["cyclone"] = true,
