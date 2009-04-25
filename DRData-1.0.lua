@@ -54,6 +54,10 @@ Data.spells = {
 	[20066] = "disorient",
 		
 	--[[ SILENCES ]]--
+	-- Nether Shock
+	[53588] = "silence",
+	[53589] = "silence",
+	
 	-- Garrote
 	[1330] = "silence",
 	
@@ -89,6 +93,10 @@ Data.spells = {
 	[18498] = "silence",
 	
 	--[[ DISARMS ]]--
+	-- Snatch
+	[53542] = "disarm",
+	[53543] = "disarm",
+	
 	-- Dismantle
 	[51722] = "disarm",
 	
@@ -132,6 +140,31 @@ Data.spells = {
 	[5246] = "fear",
 			
 	--[[ CONTROL STUNS ]]--
+	-- Gnaw
+	[47481] = "ctrlstun",
+	
+	-- Intercept (Felguard)
+	[30153] = "ctrlstun",
+	[30195] = "ctrlstun",
+	[30197] = "ctrlstun",
+	[47995] = "ctrlstun",
+	
+	-- Ravage
+	[50518] = "ctrlstun",
+	[53558] = "ctrlstun",
+	[53559] = "ctrlstun",
+	[53560] = "ctrlstun",
+	[53561] = "ctrlstun",
+	[53562] = "ctrlstun",
+	
+	-- Sonic Blast
+	[50519] = "ctrlstun",
+	[53564] = "ctrlstun",
+	[53565] = "ctrlstun",
+	[53566] = "ctrlstun",
+	[53567] = "ctrlstun",
+	[53568] = "ctrlstun",
+	
 	-- Concussion Blow
 	[12809] = "ctrlstun",
 	
