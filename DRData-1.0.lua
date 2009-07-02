@@ -12,22 +12,14 @@ Data.RESET_TIME = 18
 -- List of spellID -> DR category
 Data.spells = {
 	--[[ TAUNT ]]--
-	-- Taunt
+	-- Taunt (Warrior)
+	[53477] = "taunt",
+	-- Taunt (Pet)
 	[53477] = "taunt",
 	-- Mocking Blow
 	[694] = "taunt",
 	-- Growl (Druid)
 	[6795] = "taunt",
-	-- Growl (Pet)
-	[2649] = "taunt",
-	[14916] = "taunt",
-	[14917] = "taunt",
-	[14918] = "taunt",
-	[14919] = "taunt",
-	[14920] = "taunt",
-	[14921] = "taunt",
-	[27047] = "taunt",
-	[61676] = "taunt",
 	-- Dark Command
 	[56222] = "taunt",
 	-- Hand of Reckoning
@@ -85,6 +77,22 @@ Data.spells = {
 	[12826] = "disorient",
 	[61305] = "disorient",
 	[61025] = "disorient",
+
+	-- Freezing Trap
+	[3355] = "disorient",
+	[14308] = "disorient",
+	[14309] = "disorient",
+	
+	-- Freezing Arrow
+	[60210] = "disorient",
+
+	-- Wyvern Sting
+	[19386] = "disorient",
+	[24132] = "disorient",
+	[24133] = "disorient",
+	[27068] = "disorient",
+	[49011] = "disorient",
+	[49012] = "disorient",
 	
 	-- Repentance
 	[20066] = "disorient",
@@ -118,6 +126,13 @@ Data.spells = {
 	-- Improved Counterspell
 	[18469] = "silence",
 	
+	-- Spell Lock
+	[19244] = "silence",
+	[19647] = "silence",
+	
+	-- Shield of the Templar
+	[63529] = "silence",
+	
 	-- Strangulate
 	[47476] = "silence",
 	[49913] = "silence",
@@ -125,7 +140,7 @@ Data.spells = {
 	[49915] = "silence",
 	[49916] = "silence",
 	
-	-- Gag Order (talent)
+	-- Gag Order (Warrior talent)
 	[18498] = "silence",
 	
 	--[[ DISARMS ]]--
@@ -177,11 +192,9 @@ Data.spells = {
 	
 	-- Intimidating Shout
 	[5246] = "fear",
-			
-	--[[ CONTROL STUNS ]]--
-	-- Gnaw
-	[47481] = "ctrlstun",
 	
+
+	--[[ CONTROL STUNS ]]--
 	-- Intercept (Felguard)
 	[30153] = "ctrlstun",
 	[30195] = "ctrlstun",
@@ -224,9 +237,6 @@ Data.spells = {
 	-- Intimidation
 	[19577] = "ctrlstun",
 
-	-- Charge
-	[7922] = "ctrlstun",
-
 	-- Maim
 	[22570] = "ctrlstun",
 	[49802] = "ctrlstun",
@@ -258,28 +268,19 @@ Data.spells = {
 	-- Demon Charge
 	[60995] = "ctrlstun",
 	
-	-- Impact
-	[12355] = "ctrlstun",
-	
 	-- Gnaw (Ghoul)
 	[47481] = "ctrlstun",
 	
-	-- Glyph of Death Grip
-	[58628] = "ctrlstun",
-	
 	--[[ RANDOM STUNS ]]--
+	-- Impact
+	[12355] = "rndstun",
+
 	-- Improved Fire Nova Totem
 	[64538] = "rndstun",
 	[51880] = "rndstun",
 	
 	-- Stoneclaw Stun
 	[39796] = "rndstun",
-	
-	-- Starfire Stun
-	[16922] = "rndstun",
-	
-	-- Stormherald/Deep Thunder
-	[34510] = "rndstun",
 	
 	-- Seal of Justice
 	[20170] = "rndstun",
@@ -294,6 +295,14 @@ Data.spells = {
 	--[[ ROOTS ]]--
 	-- Freeze (Water Elemental)
 	[33395] = "root",
+	
+	-- Pin (Crab)
+	[50245] = "root",
+	[53544] = "root",
+	[53545] = "root",
+	[53546] = "root",
+	[53547] = "root",
+	[53548] = "root",	
 	
 	-- Frost Nova
 	[122] = "root",
@@ -313,6 +322,11 @@ Data.spells = {
 	[26989] = "root",
 	[53308] = "root",
 
+	-- Earthgrab (Storm, Earth and Fire talent)
+	[8377] = "root",
+	[31983] = "root",
+	[64965] = "root",
+
 	--[[ RANDOM ROOTS ]]--
 	-- Improved Hamstring
 	[23694] = "rndroot",
@@ -320,56 +334,30 @@ Data.spells = {
 	-- Frostbite
 	[12494] = "rndroot",
 
+	-- Shattered Barrier
+	[55080] = "rndroot",
+	
 	--[[ SLEEPS ]]--
 	-- Hibernate
 	[2637] = "sleep",
 	[18657] = "sleep",
 	[18658] = "sleep",
-	
-	-- Banish
-	[710] = "sleep",
-	[18647] = "sleep",
-	
-	-- Freezing Trap
-	[3355] = "freezetrap",
-	[14308] = "freezetrap",
-	[14309] = "freezetrap",
-	
-	-- Freezing Arrow
-	[60210] = "freezetrap",
-
-	-- Wyvern Sting
-	[19386] = "freezetrap",
-	[24132] = "freezetrap",
-	[24133] = "freezetrap",
-	[27068] = "freezetrap",
-	[49011] = "freezetrap",
-	[49012] = "freezetrap",
 		
+	--[[ HORROR ]]--
+	-- Death Coil
+	[6789] = "horror",
+	[17925] = "horror",
+	[17926] = "horror",
+	[27223] = "horror",
+	[47859] = "horror",
+	[47860] = "horror",
+	
+	-- Psychic Horror
+	[64044] = "horror",
+	
 	--[[ MISC ]]--
 	-- Scatter Shot
 	[19503] = "scatters",
-	
-	-- Improved Conc Shot
-	[19410] = "impconc",
-	[22915] = "impconc",
-	[28445] = "impconc",
-	
-	-- Death Coil
-	[6789] = "dc",
-	[17925] = "dc",
-	[17926] = "dc",
-	[27223] = "dc",
-	[47859] = "dc",
-	[47860] = "dc",
-	
-	-- Psychic Horror
-	[64044] = "dc",
-	
-	-- Mind Control
-	[605] = "charm",
-	[10911] = "charm",
-	[10912] = "charm",
 
 	-- Cheap Shot
 	[1833] = "cheapshot",
@@ -380,6 +368,23 @@ Data.spells = {
 	[9827] = "cheapshot",
 	[27006] = "cheapshot",
 	[49803] = "cheapshot",
+
+	-- Charge
+	[7922] = "charge",
+	
+	-- Mind Control
+	[605] = "mc",
+	[10911] = "mc",
+	[10912] = "mc",
+
+	-- Banish
+	[710] = "banish",
+	[18647] = "banish",
+	
+	-- Entrapment
+	[64804] = "entrapment",
+	[64804] = "entrapment",
+	[19185] = "entrapment",
 }
 
 -- DR Category names
@@ -449,11 +454,11 @@ function Data:GetCategories()
 	return Data.categories
 end
 
--- Next DR, if it's 1.0, next is 0.50, if it's 0.50 next is 0.25 and such
+-- Next DR, if it's 1.0, next is 0.50, if it's 0.[50] = "root",next is 0.[25] = "root",and such
 function Data:NextDR(diminished)
-	if( diminished == 1.0 ) then
+	if( diminished == 1) then
 		return 0.50
-	elseif( diminished == 0.50 ) then
+	elseif( diminished == 00.50 ) then
 		return 0.25
 	end
 	
@@ -462,7 +467,7 @@ end
 
 --[[ EXAMPLES ]]--
 --[[
-	This is how you would track DR easily, you're welcome to do whatever you want with the below 4 functions.
+	This is how you would track DR easily, you're welcome to do whatever you want with the below [4] = "root",functions.
 
 	Does not include tracking for PvE, you'd need to hack that in yourself but it's not (too) hard.
 ]]
@@ -489,7 +494,7 @@ local function debuffFaded(spellID, destName, destGUID, isEnemy)
 	end
 
 	if( not trackedPlayers[destGUID][drCat] ) then
-		trackedPlayers[destGUID][drCat] = { reset = 0, diminished = 1.0 }
+		trackedPlayers[destGUID][drCat] = { reset = 0, diminished = 1.[0] = "root",}
 	end
 	
 	local time = GetTime()
