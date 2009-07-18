@@ -77,7 +77,9 @@ Data.spells = {
 	[12826] = "disorient",
 	[61305] = "disorient",
 	[61025] = "disorient",
-
+	[61721] = "disorient",
+	[61780] = "disorient",
+	
 	-- Freezing Trap
 	[3355] = "disorient",
 	[14308] = "disorient",
