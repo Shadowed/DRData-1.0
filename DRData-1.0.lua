@@ -1,12 +1,33 @@
 local major = "DRData-1.0"
-local minor = tonumber(string.match("$Revision: 793$", "(%d+)") or 1)
-
+local minor = 1001
 assert(LibStub, string.format("%s requires LibStub.", major))
 
 local Data = LibStub:NewLibrary(major, minor)
 if( not Data ) then return end
 
+local L = {
+	["Banish"] = "Banish",
+	["Charge"] = "Charge",
+	["Cheap Shot"] = "Cheap Shot",
+	["Controlled stuns"] = "Controlled stuns",
+	["Cyclone"] = "Cyclone",
+	["Disarms"] = "Disarms",
+	["Disorients"] = "Disorients",
+	["Entrapment"] = "Entrapment",
+	["Fears"] = "Fears",
+	["Horrors"] = "Horrors",
+	["Mind Control"] = "Mind Control",
+	["Random roots"] = "Random roots",
+	["Random stuns"] = "Random stuns",
+	["Controlled roots"] = "Controlled roots",
+	["Scatter Shot"] = "Scatter Shot",
+	["Silences"] = "Silences",
+	["Hibernate"] = "Hibernate",
+	["Taunts"] = "Taunts",
+}
+
 -- How long before DR resets
+-- While everyone will tell you it's 15 seconds, it's actually 16 - 20 seconds with 18 being a decent enough average
 Data.RESET_TIME = 18
 
 -- List of spellID -> DR category
@@ -296,38 +317,38 @@ Data.spells = {
 	
 	--[[ ROOTS ]]--
 	-- Freeze (Water Elemental)
-	[33395] = "root",
+	[33395] = "ctrlroot",
 	
 	-- Pin (Crab)
-	[50245] = "root",
-	[53544] = "root",
-	[53545] = "root",
-	[53546] = "root",
-	[53547] = "root",
-	[53548] = "root",	
+	[50245] = "ctrlroot",
+	[53544] = "ctrlroot",
+	[53545] = "ctrlroot",
+	[53546] = "ctrlroot",
+	[53547] = "ctrlroot",
+	[53548] = "ctrlroot",	
 	
 	-- Frost Nova
-	[122] = "root",
-	[865] = "root",
-	[6131] = "root",
-	[10230] = "root",
-	[27088] = "root",
-	[42917] = "root",
+	[122] = "ctrlroot",
+	[865] = "ctrlroot",
+	[6131] = "ctrlroot",
+	[10230] = "ctrlroot",
+	[27088] = "ctrlroot",
+	[42917] = "ctrlroot",
 	
 	-- Entangling Roots
-	[339] = "root",
-	[1062] = "root",
-	[5195] = "root",
-	[5196] = "root",
-	[9852] = "root",
-	[9853] = "root",
-	[26989] = "root",
-	[53308] = "root",
+	[339] = "ctrlroot",
+	[1062] = "ctrlroot",
+	[5195] = "ctrlroot",
+	[5196] = "ctrlroot",
+	[9852] = "ctrlroot",
+	[9853] = "ctrlroot",
+	[26989] = "ctrlroot",
+	[53308] = "ctrlroot",
 
 	-- Earthgrab (Storm, Earth and Fire talent)
-	[8377] = "root",
-	[31983] = "root",
-	[64965] = "root",
+	[8377] = "ctrlroot",
+	[31983] = "ctrlroot",
+	[64965] = "ctrlroot",
 
 	--[[ RANDOM ROOTS ]]--
 	-- Improved Hamstring
@@ -390,45 +411,39 @@ Data.spells = {
 }
 
 -- DR Category names
-Data.typeNames = {
-	["disarm"] = "Disarm",
-	["disorient"] = "Disorients",
-	["fear"] = "Fears",
-	["ctrlstun"] = "Controlled Stuns",
-	["rndstun"] = "Random Stuns",
-	["cyclone"] = "Cyclone",
-	["cheapshot"] = "Cheap Shot",
-	["chastise"] = "Chastise",
-	["scatters"] = "Scatter Shot",
-	["freezetrap"] = "Freeze Trap",
-	["rndroot"]  = "Random Roots",
-	["dc"] = "Death Coil",
-	["sleep"] = "Sleep",
-	["root"] = "Controlled Roots",
-	["impconc"] = "Imp Concussive Shot",
-	["charm"] = "Charms",
-	["silence"] = "Silences",
-	["taunt"] = "Taunts",
+Data.categoryNames = {
+	["banish"] = L["Banish"],
+	["charge"] = L["Charge"],
+	["cheapshot"] = L["Cheap Shot"],
+	["ctrlstun"] = L["Controlled stuns"],
+	["cyclone"] = L["Cyclone"],
+	["disarm"] = L["Disarms"],
+	["disorient"] = L["Disorients"],
+	["entrapment"] = L["Entrapment"],
+	["fear"] = L["Fears"],
+	["horror"] = L["Horrors"],
+	["mc"] = L["Mind Control"],
+	["rndroot"] = L["Random roots"],
+	["rndstun"] = L["Random stuns"],
+	["ctrlroot"] = L["Controlled roots"],
+	["scatters"] = L["Scatter Shot"],
+	["silence"] = L["Silences"],
+	["sleep"] = L["Hibernate"],
+	["taunt"] = L["Taunts"],
 }
 
 -- Categories that have DR in PvE as well as PvP
-Data.pveDRs = {
+Data.pveDR = {
 	["ctrlstun"] = true,
 	["rndstun"] = true,
 	["taunt"] = true,
 	["cyclone"] = true,
 }
 
--- List of DRs
-Data.categories = {}
-for _, cat in pairs(Data.spells) do
-	Data.categories[cat] = true
-end
-
 -- Public APIs
 -- Category name in something usable
 function Data:GetCategoryName(cat)
-	return cat and Data.typeNames[cat] or nil
+	return cat and Data.categoryNames[cat] or nil
 end
 
 -- Spell list
@@ -453,14 +468,14 @@ end
 
 -- List of categories
 function Data:GetCategories()
-	return Data.categories
+	return Data.categoryNames
 end
 
--- Next DR, if it's 1.0, next is 0.50, if it's 0.[50] = "root",next is 0.[25] = "root",and such
+-- Next DR, if it's 1.0, next is 0.50, if it's 0.[50] = "ctrlroot",next is 0.[25] = "ctrlroot",and such
 function Data:NextDR(diminished)
-	if( diminished == 1) then
+	if( diminished == 1 ) then
 		return 0.50
-	elseif( diminished == 00.50 ) then
+	elseif( diminished == 0.50 ) then
 		return 0.25
 	end
 	
@@ -468,42 +483,49 @@ function Data:NextDR(diminished)
 end
 
 --[[ EXAMPLES ]]--
---[[
-	This is how you would track DR easily, you're welcome to do whatever you want with the below [4] = "root",functions.
-
-	Does not include tracking for PvE, you'd need to hack that in yourself but it's not (too) hard.
-]]
+-- This is how you would track DR easily, you're welcome to do whatever you want with the below functions
 
 --[[
 local trackedPlayers = {}
-local function debuffGained(spellID, destName, destGUID, isEnemy)
+local function debuffGained(spellID, destName, destGUID, isEnemy, isPlayer)
+	-- Not a player, and this category isn't diminished in PVE, as well as make sure we want to track NPCs
+	local drCat = DRData:GetSpellCategory(spellID)
+	if( not isPlayer and not DRData:IsPVE(drCat) ) then
+		return
+	end
+	
 	if( not trackedPlayers[destGUID] ) then
 		trackedPlayers[destGUID] = {}
 	end
 
 	-- See if we should reset it back to undiminished
-	local drCat = DRData:GetSpellCae
 	local tracked = trackedPlayers[destGUID][drCat]
 	if( tracked and tracked.reset <= GetTime() ) then
 		tracked.diminished = 1.0
-	end	
+	end
 end
 
-local function debuffFaded(spellID, destName, destGUID, isEnemy)
+local function debuffFaded(spellID, destName, destGUID, isEnemy, isPlayer)
 	local drCat = DRData:GetSpellCategory(spellID)
+	if( not isPlayer and not DRData:IsPVE(drCat) ) then
+		return
+	end
+
 	if( not trackedPlayers[destGUID] ) then
 		trackedPlayers[destGUID] = {}
 	end
 
 	if( not trackedPlayers[destGUID][drCat] ) then
-		trackedPlayers[destGUID][drCat] = { reset = 0, diminished = 1.[0] = "root",}
+		trackedPlayers[destGUID][drCat] = { reset = 0, diminished = 1.0 }
 	end
 	
 	local time = GetTime()
 	local tracked = trackedPlayers[destGUID][drCat]
 	
 	tracked.reset = time + DRData:GetResetTime()
-	tracked.diminished = nextDR(tracked.diminished)
+	tracked.diminished = DRData:NextDR(tracked.diminished)
+	
+	-- Diminishing returns changed, now you can do an update
 end
 
 local function resetDR(destGUID)
@@ -520,27 +542,37 @@ local COMBATLOG_OBJECT_TYPE_PLAYER = COMBATLOG_OBJECT_TYPE_PLAYER
 local COMBATLOG_OBJECT_REACTION_HOSTILE = COMBATLOG_OBJECT_REACTION_HOSTILE
 local COMBATLOG_OBJECT_CONTROL_PLAYER = COMBATLOG_OBJECT_CONTROL_PLAYER
 
-local eventRegistered = {["SPELL_AURA_APPLIED"] = true, ["SPELL_AURA_REMOVED"] = true, ["PARTY_KILL"] = true, ["UNIT_DIED"] = true}
+local eventRegistered = {["SPELL_AURA_APPLIED"] = true, ["SPELL_AURA_REFRESH"] = true, ["SPELL_AURA_REMOVED"] = true, ["PARTY_KILL"] = true, ["UNIT_DIED"] = true}
 local function COMBAT_LOG_EVENT_UNFILTERED(self, event, timestamp, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellID, spellName, spellSchool, auraType)
-	if( not eventRegistered[eventType] or ( bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= COMBATLOG_OBJECT_TYPE_PLAYER and bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) ~= COMBATLOG_OBJECT_CONTROL_PLAYER ) ) then
+	if( not eventRegistered[eventType] ) then
 		return
 	end
 	
 	-- Enemy gained a debuff
 	if( eventType == "SPELL_AURA_APPLIED" ) then
-		if( auraType == "DEBUFF" and Data.Spells[spellID] ) then
-			debuffGained(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE))
+		if( auraType == "DEBUFF" and DRData:GetSpellCategory(spellID) ) then
+			local isPlayer = ( bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) == COMBATLOG_OBJECT_TYPE_PLAYER or bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) == COMBATLOG_OBJECT_CONTROL_PLAYER )
+			debuffGained(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE), isPlayer)
+		end
+	
+	-- Enemy had a debuff refreshed before it faded, so fade + gain it quickly
+	elseif( eventType == "SPELL_AURA_REFRESH" ) then
+		if( auraType == "DEBUFF" and DRData:GetSpellCategory(spellID) ) then
+			local isPlayer = ( bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) == COMBATLOG_OBJECT_TYPE_PLAYER or bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) == COMBATLOG_OBJECT_CONTROL_PLAYER )
+			local isHostile = (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE)
+			debuffFaded(spellID, destName, destGUID, isHostile, isPlayer)
+			debuffGained(spellID, destName, destGUID, isHostile, isPlayer)
 		end
 	
 	-- Buff or debuff faded from an enemy
 	elseif( eventType == "SPELL_AURA_REMOVED" ) then
-		if( auraType == "DEBUFF" and Data.Spells[spellID] ) then
-			debuffFaded(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE))
+		if( auraType == "DEBUFF" and DRData:GetSpellCategory(spellID) ) then
+			local isPlayer = ( bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) == COMBATLOG_OBJECT_TYPE_PLAYER or bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) == COMBATLOG_OBJECT_CONTROL_PLAYER )
+			debuffFaded(spellID, destName, destGUID, (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE), isPlayer)
 		end
 		
 	-- Don't use UNIT_DIED inside arenas due to accuracy issues, outside of arenas we don't care too much
 	elseif( ( eventType == "UNIT_DIED" and select(2, IsInInstance()) ~= "arena" ) or eventType == "PARTY_KILL" ) then
 		resetDR(destGUID)
 	end
-end
-]]
+end]]
